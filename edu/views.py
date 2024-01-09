@@ -1,5 +1,6 @@
+from requests import Response
 from rest_framework import viewsets, generics
-from rest_framework.generics import DestroyAPIView, CreateAPIView
+from rest_framework.generics import DestroyAPIView, CreateAPIView, RetrieveAPIView
 
 from .models import Course, Lesson, Subscription
 from .serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer
@@ -50,3 +51,25 @@ class SubscriptionDestroyAPIView(DestroyAPIView):
     queryset = Subscription.objects.all()
     serializer_class = SubscriptionSerializer
     permission_classes = [IsSubscriber]
+
+
+class LessonPaymentAPIView(RetrieveAPIView):
+    queryset = Lesson.objects.all()
+    serializer_class = LessonSerializer
+
+    def get(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, context={'request': request})
+        payment_link = serializer.data['payment_link']
+        return Response({'payment_link': payment_link})
+
+
+class CoursePaymentAPIView(RetrieveAPIView):
+    queryset = Course.objects.all()
+    serializer_class = CourseSerializer
+
+    def get(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, context={'request': request})
+        payment_link = serializer.data['payment_link']
+        return Response({'payment_link': payment_link})
