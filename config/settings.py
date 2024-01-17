@@ -169,3 +169,4 @@ CSRF_TRUSTED_ORIGINS = [
     "https://read-and-write.example.com", #  Замените на адрес вашего фронтенд-сервера
     # и добавьте адрес бэкенд-сервера
 ]
+STRIPE_API_KEY = os.getenv('stripe_api_key')
