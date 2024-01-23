@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
+from time import timezone
+
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -188,3 +190,11 @@ CELERY_TASK_TRACK_STARTED = True
 
 # Максимальное время на выполнение задачи
 CELERY_TASK_TIME_LIMIT = 30 * 602
+
+
+CELERY_BEAT_SCHEDULE = {
+    'check_active': {
+        'task': 'edu.tasks.subscriber_notice',
+        'schedule': timezone.timedelta(days=30),
+    },
+}

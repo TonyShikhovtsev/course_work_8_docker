@@ -5,7 +5,7 @@ from rest_framework.routers import DefaultRouter
 
 from .views import CourseViewSet, LessonCreateAPIView, LessonListAPIView, LessonRetrieveAPIView, \
     LessonUpdateAPIView, LessonDestroyAPIView, SubscriptionCreateAPIView, \
-    SubscriptionDestroyAPIView
+    SubscriptionDestroyAPIView, SubscriptionListAPIView, SubscriptionUpdateAPIView
 
 app_name = EducationConfig.name
 
@@ -21,5 +21,8 @@ urlpatterns = [
     path('lesson/delete/<int:pk>/', LessonDestroyAPIView.as_view(), name='lesson_delete'),
     path('lesson/<int:pk>/create_sub/', SubscriptionCreateAPIView.as_view(), name='sub_create'),
     path('lesson/<int:pk>/delete_sub/', SubscriptionDestroyAPIView.as_view(), name='sub_delete'),
+    path('subscription/create/', SubscriptionCreateAPIView.as_view(), name='subscription_create'),
+    path('subscription/subscription_list/', SubscriptionListAPIView.as_view(), name='subscription_list'),
+    path('subscription/update/<int:pk>/', SubscriptionUpdateAPIView.as_view(),name='subscription_change'),
 
 ] + router.urls
